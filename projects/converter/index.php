@@ -11,10 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conversionType = $_POST['temp'];
 
             if ($conversionType === 'celToFah') {
-                $result = ($temperature * 9 / 5) + 32;
+                $result = round(($temperature * 9 / 5) + 32,2);
                 $tempOutput = "<p>{$temperature}°C is equal to {$result}°F</p>";
             } elseif ($conversionType === 'fahToCel') {
-                $result = ($temperature - 32) * 5 / 9;
+                $result = round(($temperature - 32) * 5 / 9,2);
                 $tempOutput = "<p>{$temperature}°F is equal to {$result}°C</p>";
             }
         } else {
