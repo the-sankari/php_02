@@ -24,7 +24,7 @@ include 'booksite.php';
         </div>
         <div>
             <label for="year">Year</label>
-            <input type="text" name="year" id="year">
+            <input type="number" name="publishing_year" id="year">
         </div>
         <div>
             <label for="genre">Genre</label>
@@ -35,7 +35,7 @@ include 'booksite.php';
             <textarea name="description" id="description" cols="30" rows="10"></textarea>
         </div>
         <div>
-            <input type="submit" value="Add Book">
+            <input type="submit" name="addbook" value="Add Book">
         </div>
     </form>
     <div>
