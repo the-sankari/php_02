@@ -15,10 +15,10 @@ This project is a simple PHP-based Book Management System designed to perform CR
 Home
 Dark Mode             |  Light Mode
 :-------------------------:|:-------------------------:
-![Home Page - Dark Mode](home_dark.png)  |  ![Home Page - Light Mode](home_light.png)
-![Add Page - Dark Mode](add_dark.png)  |  ![Add Page - Light Mode](add_light.png)
-![Update Page - Dark Mode](update_dark.png)  |  ![Update Page - Light Mode](update_light.png)
-  ![Notification Page - Light Mode](notification.png)
+![Home Page - Dark Mode](./images/home_dark.png)  |  ![Home Page - Light Mode](./images/home_light.png)
+![Add Page - Dark Mode](./images/add_dark.png)  |  ![Add Page - Light Mode](./images/add_light.png)
+![Update Page - Dark Mode](./images/update_dark.png)  |  ![Update Page - Light Mode](./images/update_light.png)
+  ![Notification Page - Light Mode](./images/notification.png)
 ## Files Structure
 
 1. **index.php:** The main page of the application where all books are displayed in a table format. It also includes the modal form for adding new books.
