@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check for post method
             }
 
         } else {
-            header('location:index.php?msg=cannot be divide by zero');
+            header('location:index.php?msg=Cannot divide by zero');
         }
     }
 }
@@ -97,7 +97,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check for post method
     </header>
     <main class="container">
       <div>
-      <p class="result"><?=$result?></p>
+      <div class="result">
+        <?php
+if (isset($_GET['msg'])) {?>
+                            <h6 class='text-error'> <?=$_GET['msg']?></h6>
+                        <?php } else {?>
+
+            <h6 class='text-result'> <?=$result?></h6>
+
+       <?php }
+?></div>
         <form action="index.php" method="post">
           <div>
             <label for="number1">Number 1</label>
