@@ -1,4 +1,29 @@
 <?php
+
+function convertTemperature($temperature, $conversionType) {
+    if ($conversionType === 'celToFah') {
+        return round(($temperature * 9 / 5) + 32, 2);
+    } elseif ($conversionType === 'fahToCel') {
+        return round(($temperature - 32) * 5 / 9, 2);
+    }
+}
+
+function convertSpeed($speed, $conversionType) {
+    if ($conversionType === 'kmToMs') {
+        return round($speed * 1000 / 3600, 2);
+    } elseif ($conversionType === 'kmToKnots') {
+        return round($speed * 0.539957, 2);
+    }
+}
+
+function convertMass($mass, $conversionType) {
+    if ($conversionType === 'kgtogm') {
+        return round($mass * 1000, 2);
+    } elseif ($conversionType === 'gmtokg') {
+        return round($mass / 1000, 4);
+    }
+}
+
 $tempOutput = "";
 $speedOutput = "";
 $massOutput = "";
@@ -10,13 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $temperature = $_POST['temperature'];
             $conversionType = $_POST['temp'];
 
-            if ($conversionType === 'celToFah') {
-                $result = round(($temperature * 9 / 5) + 32, 2);
-                $tempOutput = "<p>{$temperature}°C is equal to {$result}°F</p>";
-            } elseif ($conversionType === 'fahToCel') {
-                $result = round(($temperature - 32) * 5 / 9, 2);
-                $tempOutput = "<p>{$temperature}°F is equal to {$result}°C</p>";
-            }
+            $result = convertTemperature($temperature, $conversionType);
+            $tempOutput = "<p>". htmlspecialchars($temperature). "°". htmlspecialchars($conversionType). " is equal to ". htmlspecialchars($result). "°". htmlspecialchars(str_replace("To", "To", $conversionType)). "</p>";
         } else {
             $tempOutput = "<p class='errors'>Please enter a valid temperature.</p>";
         }
@@ -28,13 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $speed = $_POST['speed'];
             $conversionType = $_POST['speeds'];
 
-            if ($conversionType === 'kmToMs') {
-                $result = round($speed * 1000 / 3600, 2);
-                $speedOutput = "<p>{$speed} km/h is equal to {$result} m/s</p>";
-            } elseif ($conversionType === 'kmToKnots') {
-                $result = round($speed * 0.539957, 2);
-                $speedOutput = "<p>{$speed} km/h is equal to {$result} Knots</p>";
-            }
+            $result = convertSpeed($speed, $conversionType);
+            $speedOutput = "<p>". htmlspecialchars($speed). " ". htmlspecialchars($conversionType). " is equal to ". htmlspecialchars($result). " ". htmlspecialchars(str_replace("To", "To", $conversionType)). "</p>";
         } else {
             $speedOutput = "<p class='errors'>Please enter a valid speed.</p>";
         }
@@ -46,15 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mass = $_POST['mass'];
             $conversionType = $_POST['masses'];
 
-            if ($conversionType === 'kgtogm') {
-                $result = round($mass * 1000, 2);
-                $massOutput = "<p>{$mass} kg is equal to {$result} g</p>";
-            } elseif ($conversionType === 'gmtokg') {
-                $result = round($mass / 1000, 4);
-                $massOutput = "<p>{$mass} g is equal to {$result} kg</p>";
-            }
+            $result = convertMass($mass, $conversionType);
+            $massOutput = "<p>". htmlspecialchars($mass). " ". htmlspecialchars($conversionType). " is equal to ". htmlspecialchars($result). " ". htmlspecialchars(str_replace("To", "To", $conversionType)). "</p>";
         } else {
             $massOutput = "<p class='errors'>Please enter a valid mass.</p>";
         }
     }
 }
+
+?>
+
