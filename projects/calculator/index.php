@@ -1,23 +1,41 @@
 <?php
 
-function addition($number1, $number2)
+class Calculator
 {
-    return $number1 + $number2;
-}
+    private $number1;
+    private $number2;
 
-function substraction($number1, $number2)
-{
-    return $number1 - $number2;
-}
+    public function __construct($number1, $number2)
+    {
+        $this->number1 = $number1;
+        $this->number2 = $number2;
+    }
 
-function multiplication($number1, $number2)
-{
-    return $number1 * $number2;
-}
+    public function addition()
+    {
+        return $this->number1 + $this->number2;
+    }
 
-function dividation($number1, $number2)
-{
-    return $number1 / $number2;
+    public function substraction()
+    {
+
+        return $this->number1 - $this->number2;
+
+    }
+    public function multiplication()
+    {
+        return $this->number1 * $this->number2;
+    }
+
+    public function dividation()
+    {
+        if ($this->number2 == 0) {
+            throw new Exception("Error: Cannot divide by zero");
+
+        }
+        return $this->number1 / $this->number2;
+    }
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check for post method
