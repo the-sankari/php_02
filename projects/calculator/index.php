@@ -37,33 +37,38 @@ class Calculator
     }
 
 }
-
+$result = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check for post method
     if (isset($_POST['submit'])) { // check for submit button is in action
         if (!empty($_POST['number1']) && !empty($_POST['number2'])) { // check for input fields are not empty
             // assign the values
-            $number1 = $_POST['number1'];
-            $number2 = $_POST['number2'];
+            $number1 = filter_var($_POST['number1'], FILTER_VALIDATE_FLOAT);
+            $number2 = filter_var($_POST['number2'], FILTER_VALIDATE_FLOAT);
 
+            if ($number1 == false || $number2 == false) {
+                die("Error! Invalid input! Must be a number");
+            }
+
+            $calculator = new Calculator($number1, $number2);
             if (isset($_POST['method'])) {
 
                 $method = $_POST['method'];
 
                 switch ($method) {
                     case "addition":
-                        $result = "Addition: " . addition($number1, $number2);
+                        $result = "Addition: " . $calculator->addition();
                         break;
                     case "substraction":
-                        $result = "Subtraction: " . substraction($number1, $number2);
+                        $result = "Subtraction: " . $calculator->substraction();
                         break;
                     case "multiplicaiton":
-                        $result = "Multiplication: " . multiplication($number1, $number2);
+                        $result = "Multiplication: " . $calculator->multiplication();
                         break;
                     case "dividation":
-                        if ($number2 != 0) {
-                            $result = "Division: " . dividation($number1, $number2);
-                        } else {
-                            die("Error! Cannot divide by zero");
+                        try {
+                            $result = "Division: " . $calculator->dividation();
+                        } catch (Exception $e) {
+                            $result = "Error! " . $e->getMessage();
                         }
                         break;
                     default:
@@ -72,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check for post method
             }
 
         } else {
-            die("Both inputs must be filled out!");
+            header('location:index.php?msg=cannot be divide by zero');
         }
     }
 }
@@ -84,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check for post method
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header>
@@ -105,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check for post method
           <div class="options">
             <select name="method" id="method">
               Choose a mehtod
-
               <option value="addition">Add</option>
               <option value="substraction">Substract</option>
               <option value="multiplicaiton">Multiply</option>
